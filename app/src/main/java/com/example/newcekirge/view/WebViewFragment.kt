@@ -36,7 +36,7 @@ class WebViewFragment : Fragment() {
 
         webView.settings.javaScriptEnabled = true
 
-        webView.loadUrl(args.currentUniversity.website) // İstediğiniz URL ile değiştirin
+        webView.loadUrl(args.currentUniversity.website)
     }
 
 

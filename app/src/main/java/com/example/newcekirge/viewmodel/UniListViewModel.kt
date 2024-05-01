@@ -25,7 +25,7 @@ class UniListViewModel @Inject constructor(application: Application, private val
         fetchUniversityData(1)
     }
 
-    fun fetchUniversityData(page: Int) {
+    fun fetchUniversityData(page: Int,callback: ((Boolean) -> Unit)? = null) {
         viewModelScope.launch {
             try {
                 val response = repository.fetchUniversityData(page)
@@ -47,9 +47,11 @@ class UniListViewModel @Inject constructor(application: Application, private val
                 updatedCitiesList.addAll(citiesList)
 
                 cities.value = updatedCitiesList
+                callback?.invoke(true)
 
             } catch (e: Exception) {
                 error.value = "Veriler yüklenirken bir hata oluştu: ${e.message}"
+                callback?.invoke(false)
             }
         }
     }

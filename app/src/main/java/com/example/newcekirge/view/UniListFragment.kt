@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,7 @@ class UniListFragment : Fragment(), FavClickInterface {
         binding.recyclerViewCities.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = CityAdapter(emptyList(), this@UniListFragment)
+            var isLoading = false
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -57,11 +59,16 @@ class UniListFragment : Fragment(), FavClickInterface {
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                     val totalItemCount = layoutManager.itemCount
 
-                    if (lastVisibleItemPosition == totalItemCount - 1) {
-                        if(currentPage!=3){
+                    if (!isLoading && lastVisibleItemPosition == totalItemCount - 1) {
+                        if (currentPage < 3) {
+                            isLoading = true
                             currentPage++
-                            viewModel.fetchUniversityData(currentPage)
+                            viewModel.fetchUniversityData(currentPage) { success ->
+                                isLoading = !success
+                            }
+                            Log.e("Tag", "$currentPage")
                         }
+
                     }
                 }
             })

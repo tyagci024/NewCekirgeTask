@@ -37,7 +37,6 @@ class UniversityAdapter(
             binding.imageViewFavStar.setOnClickListener {
                 val university = universities[adapterPosition]
                 favClickInterface.favClicked(university, binding)
-
             }
         }
 
