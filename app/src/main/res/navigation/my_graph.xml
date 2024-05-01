@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_graph"
+    app:startDestination="@id/uniListFragment">
+
+    <fragment
+        android:id="@+id/uniListFragment"
+        android:name="com.example.newcekirge.view.UniListFragment"
+        android:label="Universiteler"
+        tools:layout="@layout/fragment_uni_list" >
+        <action
+            android:id="@+id/action_uniListFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteUniFragment"
+        android:name="com.example.newcekirge.view.FavoriteUniFragment"
+        android:label="Favorilerim"
+        tools:layout="@layout/fragment_favorite_uni" >
+        <action
+            android:id="@+id/action_favoriteUniFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.newcekirge.view.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="currentUniversity"
+            app:argType="com.example.newcekirge.model.University" />
+    </fragment>
+</navigation>
